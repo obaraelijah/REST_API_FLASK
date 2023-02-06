@@ -23,6 +23,12 @@ class Order(db.Model):
     flavour=db.Column(db.String(),nullable=False)
     date_created=db.Column(db.DateTime(),default=datetime.utcnow)
     user=db.Column(db.Integer(),db.ForeignKey('users.id'))
+    quantity=db.Column(db.Integer())
     
     def __repr__(self):
         return f"<Order {self.id}>"
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        
