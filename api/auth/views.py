@@ -3,6 +3,8 @@ from flask import request
 from ..models.users import User
 from werkzeug.security import generate_password_hash,check_password_hash
 from http import HTTPStatus
+from flask_jwt_extended import (create_access_token,create_refresh_token,jwt_required, get_jwt_identity)
+
 
 auth_namespace=Namespace('auth', description="a namespace for authentication")
 
@@ -28,6 +30,13 @@ user_model=auth_namespace.model(
     }
 )
 
+
+login_model=auth_namespace.model(
+    'Login',{
+        'email':fields.String(required=True,description='An email'),
+         'password':fields.String(required=True,description='A password')
+    }
+)
 
 @auth_namespace.route('/signup')
 class SignUp(Resource):
@@ -58,11 +67,37 @@ class SignUp(Resource):
     
 @auth_namespace.route('/login')
 class Login(Resource):
-    
+    @auth_namespace.expect(login_model)
     def post(self):
         
         """
             Generate a JWT pair
         """
+        data=request.get_json()
         
-        pass
+        email=data.get('email')
+        password=data.get('password')
+        
+        user=User.query.filter_by(email=email).first()
+        
+        if (user is not None) and check_password_hash(user.password_hash,password):
+            access_token=create_access_token(identity=user.username)
+            refresh_token=create_refresh_token(identity=user.username) 
+            
+            response={
+                'access_token':access_token,
+                'refresh_token':refresh_token
+            }
+            
+            return response, HTTPStatus.OK
+        
+    @auth_namespace.route('/refresh')
+    class Refresh(Resource):
+        
+        @jwt_required(refresh=True)
+        def post(self):
+            username=get_jwt_identity
+            
+            access_token=create_access_token(identity=username)
+            
+            return {'access_token':access_token},HTTPStatus.ok
