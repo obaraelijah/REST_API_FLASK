@@ -20,8 +20,10 @@ class DevConfig(Config):
     
     
 class Testconfig(Config):
-    pass
-
+    TEST=True
+    SQLALCHEMY_ECHO=True
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SQLALCHEMY_DATABASE_URI='sqlite://'
 
 class ProdConfig(Config):
     pass
@@ -31,5 +33,5 @@ class ProdConfig(Config):
 config_dict={
     'dev':DevConfig,
     'prod':ProdConfig,
-    'test':Testconfig
+    'testing':Testconfig
 }
