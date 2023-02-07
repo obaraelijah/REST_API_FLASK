@@ -1,14 +1,46 @@
-## ROUTES TO IMPLEMENT
-| METHOD |ROUTE | FUNCTIONALITY |ACCESS|
-| --------| ---------- | ------- | ---------|
-| *POST* | ```/auth/signup/ ```| _Register new user_| All users_|
-| *POST* | ```/auth/login/ ```| Login new user_| All users_|
-| *POST* | ```/orders/order/ ```| _place an order| All users_|
-| *PUT* | ```/orders/order/update/{order_id}/ ```| _update an order| All users_|
-| *PUT* | ```/orders/order/status/{order_id}/ ```| _update order status_| _Superuser_|
-| *DELETE* | ```/orders/order/delete/{order_id}/ ```| Delete/Remove an _order| All users_|
-| *GET* | ```/orders/user/orders/ ```| _Get user's  orders_| _ALL users_|
-| *GET* | ```/orders/orders/ ```| _List all orders made_| _Superuser_|
-| *GET* | ```/orders/orders/{order_id} ```| _Retrieve an order_| _Superuser_|
-| *GET* | ```/orders/user/order/{order_id} ```| _Get user's speific order_|
-| *GET* | ```/docs/ ```| _view API documentation_| _All users_|
+
+# Building A REST API with Flask
+A pizza delivery API Built with Flask
+
+## Topics Learned
+- How to set up a Flask API with Flask-RESTX
+- Databases with FlaskJWT Authentication with Flask-JWT-Extended-SQLAlchemy
+- Environment variables with Python-Decouple
+- Database migrations with Flask-Migrate
+- How to write Unit Tests with Unittest and PyTest
+- Documenting REST APIs with SwaggerUI and Flask-RESTX
+- Error Handling with Werkzeug
+
+## How to run the project
+Clone the project Repository
+```$ https://github.com/obaraelijah/REST_API_FLASK.git```
+
+Enter the project folder and create a virtual environment
+
+```$ cd Enter the project folder and create a virtual environment ```
+
+``$ python -m venv env ``
+
+Activate the virtual environment
+
+```
+$ source env/bin/actvate #On linux Or Unix
+
+$ source env/Scripts/activate #On Windows 
+```
+
+### Install all requirements
+``` $ pip install -r requirements.txt```
+
+### Run the project in development
+``` 
+$ export FLASK_APP=api/
+
+$ export FLASK_DEBUG=1
+
+$ flask run 
+```
+#### OR
+```
+python runserver.py
+```
